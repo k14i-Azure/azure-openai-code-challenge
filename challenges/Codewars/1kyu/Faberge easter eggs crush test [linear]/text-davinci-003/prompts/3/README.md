@@ -1,0 +1,128 @@
+# Prompt 3
+
+```
+/*
+You are a professional programmer.
+Write a python function step by step to solve Expressing number as sum of four squares.
+
+Begin with following code snippet:
+"""
+MOD = 998244353
+
+def height(n, m):
+"""
+*/
+
+/*
+Instructions:
+This is the SUPER performance version of This kata.
+
+You task is exactly the same as that kata. But this time, you should output result % 998244353, or otherwise the result would be too large.
+
+Data range
+sometimes
+  n <= 80000
+  m <= 100000
+while sometimes
+  n <= 3000
+  m <= 2^200
+There are 150 random tests. You will need more than just a naive linear algorithm for this task :D
+*/
+
+/*
+Test code to pass:
+"""
+from solution import height
+import codewars_test as test
+
+@test.describe('Example tests')
+def desc1():
+    @test.it("should work for some basic tests")
+    def it1():
+        test.assert_equals(height(1,51),51)
+        test.assert_equals(height(2,1),1)
+        test.assert_equals(height(4,17),3213)
+        test.assert_equals(height(16,19),524096)
+        test.assert_equals(height(23,19),524287)
+    @test.it("should work for some advanced tests")
+    def it2():
+        test.assert_equals(height(13,550),621773656)
+        test.assert_equals(height(531,550),424414512)
+    @test.it("should work for some serious tests :)")
+    def it3():
+        test.assert_equals(height(10 ** 4, 10 ** 5),132362171)
+        test.assert_equals(height(8*10 ** 4, 10 ** 5),805097588)
+        test.assert_equals(height(3000,2 ** 200),141903106)
+        test.assert_equals(height(8*10 ** 4, 4*10 **4 ),616494770)
+        test.assert_equals(height(4*10 ** 4, 8*10 ** 4),303227698)
+"""
+*/
+
+/*
+Constraints:
+* Never repeat `if` and/or `elif` conditions simply and slightly changing the values like:
+"""
+if n == 0:
+    return (0, 0, 0, 0)
+elif n == 1:
+    return (1, 0, 0, 0)
+elif n == 2:
+    return (1, 1, 0, 0)
+# ...
+"""
+* Never repeat `if` and/or `elif` conditions simply and slightly changing the values like:
+"""
+if n == 0:
+    return m
+if m == 0:
+    return n
+if n == 1:
+    return m
+if m == 1:
+    return n
+# ...
+"""
+* The code should be clean, organized and constructed.
+* Don't pack non-iterable NoneType object.
+* The execution time must not be longer than 12000 milliseconds.
+* No need to generate test codes.
+* No need to add comments.
+*/
+
+/*
+Wrong code example 1:
+"""
+MOD = 998244353
+
+def height(n, m):
+    # base cases
+    if n == 0 or m == 0:
+        return 0
+    if n == 1 or m == 1:
+        return m
+    
+    # pre-calculate squares
+    squares = [i*i for i in range(1, int(n**0.5)+1)]
+    
+    # dp array
+    dp = [[0]*(m+1) for _ in range(n+1)]
+    
+    # fill the dp array
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if i in squares:
+                dp[i][j] = j
+            else:
+                for k in range(1, int(i**0.5)+1):
+                    dp[i][j] = (dp[i][j] + dp[i-k*k][j]) % MOD
+    return dp[n][m]
+"""
+In this case,
+* `test.assert_equals(height(4,17),3213)` fails because `height(4,17)` returns 17, not 3213
+* `test.assert_equals(height(16,19),524096)` fails because `height(16,19)` returns 19, not 524096
+*/
+
+/*
+Solution in a single smart, organized, structured and constructed function in Python:
+*/
+```
